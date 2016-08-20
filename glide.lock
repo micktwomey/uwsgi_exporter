@@ -1,0 +1,34 @@
+hash: 004c501b955a5f7ba928de7d73d6c8f6d663925b207fa0b2e647cb9a536a5bf0
+updated: 2016-08-20T14:57:16.600048913+01:00
+imports:
+- name: github.com/beorn7/perks
+  version: b965b613227fddccbfffe13eae360ed3fa822f8d
+  subpackages:
+  - quantile
+- name: github.com/golang/protobuf
+  version: c22ae3cf020a21ebb7ae566dccbe90fc8ea4f9ea
+  subpackages:
+  - proto
+- name: github.com/matttproud/golang_protobuf_extensions
+  version: fc2b8d3a73c4867e51861bbdd5ae3c1f0869dd6a
+  subpackages:
+  - pbutil
+- name: github.com/prometheus/client_golang
+  version: c5b7fccd204277076155f10851dad72b76a49317
+  subpackages:
+  - prometheus
+- name: github.com/prometheus/client_model
+  version: fa8ad6fec33561be4280a8f0514318c79d7f6cb6
+  subpackages:
+  - go
+- name: github.com/prometheus/common
+  version: ebdfc6da46522d58825777cf1f90490a5b1ef1d8
+  subpackages:
+  - expfmt
+  - model
+  - internal/bitbucket.org/ww/goautoneg
+- name: github.com/prometheus/procfs
+  version: 6c34ef819e19b4e16f410100ace4aa006f0e3bf8
+- name: gopkg.in/oleiade/reflections.v1
+  version: 2b6ec3da648e3e834dc41bad8d9ed7f2dc6a9496
+testImports: []

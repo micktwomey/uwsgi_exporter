@@ -1,0 +1,8 @@
+package: github.com/micktwomey/uwsgi_exporter
+import:
+- package: github.com/prometheus/client_golang
+  version: ^0.7.0
+  subpackages:
+  - prometheus
+- package: gopkg.in/oleiade/reflections.v1
+  version: ~1.0.0
