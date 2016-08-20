@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	addr             = flag.String("listen-address", ":8080", "The address to listen on for HTTP requests.")
+	addr             = flag.String("listen-address", ":9031", "The address to listen on for HTTP requests.")
 	uwsgi_stats_addr = flag.String("uwsgi-stats-address", "unix://uwsgi.sock", "The address of the uWSGI stats socket.")
 )
 
