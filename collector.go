@@ -203,6 +203,20 @@ func NewUwsgiGaugeStat(name string, description string, prefix string, label_nam
 	}
 }
 
+func NewUwsgiCounterStat(name string, description string, prefix string, suffix string, label_names *[]string) Stat {
+	prometheus_name := prefix + strings.ToLower(name) + suffix
+	return Stat{
+		name,
+		prometheus.CounterValue,
+		prometheus.NewDesc(
+			prometheus_name,
+			description,
+			*label_names,
+			prometheus.Labels{},
+		),
+	}
+}
+
 func NewUwsgiStats() []Stat {
 	prefix := "uwsgi_stats_"
 	label_names := []string{"type", "uwsgi_stats_address", "identifier"}
@@ -227,20 +241,21 @@ func NewUwsgiSocketStats() []Stat {
 
 func NewUwsgiWorkerStats() []Stat {
 	prefix := "uwsgi_stats_worker_"
+	suffix := "_total"
 	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status"}
 	return []Stat{
 		NewUwsgiGaugeStat("Accepting", "Is this worker accepting requests?.", prefix, &label_names),
-		NewUwsgiGaugeStat("Requests", "Number of requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Delta_Requests", "Number of delta requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Exceptions", "Number of exceptions.", prefix, &label_names),
-		NewUwsgiGaugeStat("Harakiri_Count", "Number of harakiri attempts.", prefix, &label_names),
-		NewUwsgiGaugeStat("Signals", "Number of signals.", prefix, &label_names),
+		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Delta_Requests", "Number of delta requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Exceptions", "Number of exceptions.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Harakiri_Count", "Number of harakiri attempts.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Signals", "Number of signals.", prefix, suffix, &label_names),
 		NewUwsgiGaugeStat("Signal_Queue", "Length of signal queue.", prefix, &label_names),
 		NewUwsgiGaugeStat("Rss", "Worker RSS bytes.", prefix, &label_names),
 		NewUwsgiGaugeStat("Vsz", "Worker VSZ bytes.", prefix, &label_names),
 		NewUwsgiGaugeStat("Running_Time", "Worker running time.", prefix, &label_names),
 		NewUwsgiGaugeStat("Last_Spawn", "Last worker respawn time.", prefix, &label_names),
-		NewUwsgiGaugeStat("Respawn_Count", "Worker respawn count.", prefix, &label_names),
+		NewUwsgiCounterStat("Respawn_Count", "Worker respawn count.", prefix, suffix, &label_names),
 		NewUwsgiGaugeStat("Tx", "Worker transmitted bytes.", prefix, &label_names),
 		NewUwsgiGaugeStat("Avg_Rt", "Worker average RT.", prefix, &label_names),
 	}
@@ -248,25 +263,27 @@ func NewUwsgiWorkerStats() []Stat {
 
 func NewUwsgiAppStats() []Stat {
 	prefix := "uwsgi_stats_worker_app_"
+	suffix := "_total"
 	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status", "app_id", "mountpoint", "chdir"}
 	return []Stat{
 		NewUwsgiGaugeStat("Startup_Time", "How long this app took to start.", prefix, &label_names),
-		NewUwsgiGaugeStat("Requests", "Number of requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Exceptions", "Number of exceptions.", prefix, &label_names),
+		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Exceptions", "Number of exceptions.", prefix, suffix, &label_names),
 	}
 }
 
 func NewUwsgiCoreStats() []Stat {
 	prefix := "uwsgi_stats_worker_core_"
+	suffix := "_total"
 	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status", "core_id"}
 	return []Stat{
-		NewUwsgiGaugeStat("Requests", "Number of requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Static_Requests", "Number of static requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Routed_Requets", "Number of routed requests.", prefix, &label_names),
-		NewUwsgiGaugeStat("Ofloaded_Requests", "Number of requests offloaded to threads.", prefix, &label_names),
-		NewUwsgiGaugeStat("Write_Errors", "Number of write errors.", prefix, &label_names),
-		NewUwsgiGaugeStat("Read_Errors", "Number of read errors.", prefix, &label_names),
-		NewUwsgiGaugeStat("In_Requests", "Number of requests in.", prefix, &label_names),
+		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Static_Requests", "Number of static requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Routed_Requets", "Number of routed requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Ofloaded_Requests", "Number of requests offloaded to threads.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Write_Errors", "Number of write errors.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Read_Errors", "Number of read errors.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("In_Requests", "Number of requests in.", prefix, suffix, &label_names),
 	}
 }
 
