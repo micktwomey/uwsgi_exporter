@@ -55,7 +55,6 @@ func NewStatMetric(stat *Stat, value int, results *UwsgiStatsReadResults) promet
 		stat.PrometheusType,
 		float64(value),
 		results.Type,
-		results.Address,
 		results.Identifier,
 	)
 }
@@ -66,7 +65,6 @@ func NewSocketStatMetric(stat *Stat, value int, socket *UwsgiSocket, results *Uw
 		stat.PrometheusType,
 		float64(value),
 		results.Type,
-		results.Address,
 		results.Identifier,
 		socket.Name,
 		socket.Proto,
@@ -79,7 +77,6 @@ func NewWorkerStatMetric(stat *Stat, value int, worker *UwsgiWorker, results *Uw
 		stat.PrometheusType,
 		float64(value),
 		results.Type,
-		results.Address,
 		results.Identifier,
 		strconv.Itoa(worker.Id),
 		worker.Status,
@@ -92,7 +89,6 @@ func NewAppStatMetric(stat *Stat, value int, app *UwsgiApp, worker *UwsgiWorker,
 		stat.PrometheusType,
 		float64(value),
 		results.Type,
-		results.Address,
 		results.Identifier,
 		strconv.Itoa(worker.Id),
 		worker.Status,
@@ -108,7 +104,6 @@ func NewCoreStatMetric(stat *Stat, value int, core *UwsgiCore, worker *UwsgiWork
 		stat.PrometheusType,
 		float64(value),
 		results.Type,
-		results.Address,
 		results.Identifier,
 		strconv.Itoa(worker.Id),
 		worker.Status,
@@ -125,7 +120,6 @@ func (u *UwsgiStatsCollector) Collect(ch chan<- prometheus.Metric) {
 				prometheus.CounterValue,
 				float64(1),
 				results.Type,
-				results.Address,
 				results.Identifier,
 			)
 			continue
@@ -135,7 +129,6 @@ func (u *UwsgiStatsCollector) Collect(ch chan<- prometheus.Metric) {
 			prometheus.CounterValue,
 			float64(1),
 			results.Type,
-			results.Address,
 			results.Identifier,
 			results.UwsgiStats.Version,
 		)
@@ -219,7 +212,7 @@ func NewUwsgiCounterStat(name string, description string, prefix string, suffix 
 
 func NewUwsgiStats() []Stat {
 	prefix := "uwsgi_stats_"
-	label_names := []string{"type", "uwsgi_stats_address", "identifier"}
+	label_names := []string{"type", "identifier"}
 	return []Stat{
 		NewUwsgiGaugeStat("Listen_Queue", "Length of listen queue.", prefix, &label_names),
 		NewUwsgiGaugeStat("Listen_Queue_Errors", "Number of listen queue errors.", prefix, &label_names),
@@ -230,7 +223,7 @@ func NewUwsgiStats() []Stat {
 
 func NewUwsgiSocketStats() []Stat {
 	prefix := "uwsgi_stats_socket_"
-	label_names := []string{"type", "uwsgi_stats_address", "identifier", "name", "proto"}
+	label_names := []string{"type", "identifier", "name", "proto"}
 	return []Stat{
 		NewUwsgiGaugeStat("Queue", "Length of socket queue.", prefix, &label_names),
 		NewUwsgiGaugeStat("Max_Queue", "Make length of socket queue.", prefix, &label_names),
@@ -242,7 +235,7 @@ func NewUwsgiSocketStats() []Stat {
 func NewUwsgiWorkerStats() []Stat {
 	prefix := "uwsgi_stats_worker_"
 	suffix := "_total"
-	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status"}
+	label_names := []string{"type", "identifier", "worker_id", "status"}
 	return []Stat{
 		NewUwsgiGaugeStat("Accepting", "Is this worker accepting requests?.", prefix, &label_names),
 		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
@@ -264,7 +257,7 @@ func NewUwsgiWorkerStats() []Stat {
 func NewUwsgiAppStats() []Stat {
 	prefix := "uwsgi_stats_worker_app_"
 	suffix := "_total"
-	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status", "app_id", "mountpoint", "chdir"}
+	label_names := []string{"type", "identifier", "worker_id", "status", "app_id", "mountpoint", "chdir"}
 	return []Stat{
 		NewUwsgiGaugeStat("Startup_Time", "How long this app took to start.", prefix, &label_names),
 		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
@@ -275,7 +268,7 @@ func NewUwsgiAppStats() []Stat {
 func NewUwsgiCoreStats() []Stat {
 	prefix := "uwsgi_stats_worker_core_"
 	suffix := "_total"
-	label_names := []string{"type", "uwsgi_stats_address", "identifier", "worker_id", "status", "core_id"}
+	label_names := []string{"type", "identifier", "worker_id", "status", "core_id"}
 	return []Stat{
 		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
 		NewUwsgiCounterStat("Static_Requests", "Number of static requests.", prefix, suffix, &label_names),
@@ -294,13 +287,13 @@ func NewUwsgiStatsCollector(reader *UwsgiStatsReader) *UwsgiStatsCollector {
 		ReadsDesc: prometheus.NewDesc(
 			"uwsgi_stats_scrapes_total",
 			"Number of times stats are scraped",
-			[]string{"type", "uwsgi_stats_address", "identifier", "uwsgi_version"},
+			[]string{"type", "identifier", "uwsgi_version"},
 			prometheus.Labels{},
 		),
 		ErrorDesc: prometheus.NewDesc(
 			"uwsgi_stats_read_error_total",
 			"Problems reading stats",
-			[]string{"type", "uwsgi_stats_address", "identifier"},
+			[]string{"type", "identifier"},
 			prometheus.Labels{},
 		),
 		UwsgiStats:       NewUwsgiStats(),
