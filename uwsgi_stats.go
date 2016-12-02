@@ -73,15 +73,15 @@ type UwsgiApp struct {
 }
 
 type UwsgiCore struct {
-	Id                int
-	Requests          int
-	Static_Requests   int
-	Routed_Requets    int
-	Ofloaded_Requests int
-	Write_Errors      int
-	Read_Errors       int
-	In_Requests       int
-	Vars              []string
+	Id                 int
+	Requests           int
+	Static_Requests    int
+	Routed_Requests    int
+	Offloaded_Requests int
+	Write_Errors       int
+	Read_Errors        int
+	In_Requests        int
+	Vars               []string
 }
 
 type UwsgiUnixGlobAddr string
