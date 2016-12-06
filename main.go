@@ -15,6 +15,9 @@ var (
 
 func parse_uwsgi_stats_addr(address string) (address_type string, addr string, err error) {
 	parts := strings.SplitN(address, "://", 2)
+	if len(parts) < 2 {
+		return "", "", fmt.Errorf("Can't parse uwsgi-stats-address: %g", address)
+	}
 	scheme := parts[0]
 	path := parts[1]
 	switch {
