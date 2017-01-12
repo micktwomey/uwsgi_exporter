@@ -272,8 +272,8 @@ func NewUwsgiCoreStats() []Stat {
 	return []Stat{
 		NewUwsgiCounterStat("Requests", "Number of requests.", prefix, suffix, &label_names),
 		NewUwsgiCounterStat("Static_Requests", "Number of static requests.", prefix, suffix, &label_names),
-		NewUwsgiCounterStat("Routed_Requets", "Number of routed requests.", prefix, suffix, &label_names),
-		NewUwsgiCounterStat("Ofloaded_Requests", "Number of requests offloaded to threads.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Routed_Requests", "Number of routed requests.", prefix, suffix, &label_names),
+		NewUwsgiCounterStat("Offloaded_Requests", "Number of requests offloaded to threads.", prefix, suffix, &label_names),
 		NewUwsgiCounterStat("Write_Errors", "Number of write errors.", prefix, suffix, &label_names),
 		NewUwsgiCounterStat("Read_Errors", "Number of read errors.", prefix, suffix, &label_names),
 		NewUwsgiCounterStat("In_Requests", "Number of requests in.", prefix, suffix, &label_names),
