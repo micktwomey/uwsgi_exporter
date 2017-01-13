@@ -54,5 +54,5 @@ func main() {
 	prometheus.MustRegister(collector)
 
 	http.Handle("/metrics", prometheus.Handler())
-	http.ListenAndServe(*addr, nil)
+	fmt.Printf("%s\n", http.ListenAndServe(*addr, nil))
 }
