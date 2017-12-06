@@ -1,5 +1,7 @@
 # uWSGI Prometheus Exporter
 
+Fork of https://github.com/micktwomey/uwsgi_exporter
+
 Reads the uWSGI stats socket and exports metrics.
 
 # Usage

@@ -1,0 +1,16 @@
+#
+# Original FPM Dockerfile
+# https://github.com/dockerfile/fpm
+# Example use: fpm -s dir -t deb -C /opt/ --version=3.1 --name=mozjpeg mozjpeg=/opt/
+
+# Pull base image.
+FROM ruby:2.2
+
+# Install FPM.
+RUN gem install fpm
+
+# Define working directory.
+WORKDIR /workspace
+
+# Define default command.
+CMD ["bash"]
